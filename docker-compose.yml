@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  synapse-db:
+    image: postgres:15-alpine
+    container_name: synapse-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: synapse
+      POSTGRES_USER: synapse_user
+      POSTGRES_PASSWORD: gizli_veritabanı_sifresi
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+  synapse:
+    image: matrixdotorg/synapse:latest
+    container_name: matrix-synapse
+    restart: unless-stopped
+    ports:
+      - "8008:8008"
+    volumes:
+      - ./synapse_data:/data
+    environment:
+      - SYNAPSE_CONFIG_PATH=/data/homeserver.yaml
+    depends_on:
+      - synapse-db
+
+  cinny:
+    image: ajbura/cinny:latest
+    container_name: matrix-cinny
+    restart: unless-stopped
+    ports:
+      - "8080:80"
