@@ -1,0 +1,6 @@
+postgres_data/  
+synapse_data/  
+whatsapp-data/  
+__pycache__/  
+bot_state.db  
+git 

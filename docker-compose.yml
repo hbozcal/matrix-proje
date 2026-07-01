@@ -31,3 +31,14 @@ services:
     restart: unless-stopped
     ports:
       - "8080:80"
+
+  mautrix-whatsapp:
+    image: dock.mau.dev/mautrix/whatsapp:latest
+    restart: unless-stopped
+    volumes:
+      - ./whatsapp-data:/data
+    environment:
+      - UID=1000
+      - GID=1000
+    depends_on:
+      - synapse

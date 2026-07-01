@@ -29,8 +29,9 @@ def gitlab_webhook():
     
     # Eğer gelen bildirim bir kod yükleme (Push) işlemiyse:
     if event_type == "Push Hook":
-        user_name = data.get('user_name', 'Bilinmeyen Kullanıcı')
-        project_name = data['project']['name']
+        # BURAYI GÜNCELLEDİK: Eğer GitLab'dan bir isim gelmezse varsayılan olarak Harun Bozçal yazacak
+        user_name = data.get('user_name', 'Harun Bozçal')
+        project_name = data.get('project', {}).get('name', 'Matrix Projesi')
         commits = data.get('commits', [])
         
         # Gönderilen kod (commit) mesajlarını listele
