@@ -2,6 +2,7 @@ import asyncio
 import requests
 import base64
 import json
+import time # ZAMAN KONTROLÜ İÇİN EKLENDİ
 from datetime import datetime, timezone, timedelta
 from nio import AsyncClient, MatrixRoom, Event, InviteEvent
 from nio.responses import RoomContextResponse
@@ -26,6 +27,10 @@ ALLOWED_ROOM_NAMES = ["Üretim", "üretim", "Yazılım", "yazılım", "YAZILIM",
 
 # Türkiye Saat Dilimi Sabiti
 TZ_TURKEY = timezone(timedelta(hours=3))
+
+# --- GEÇMİŞ SENKRONİZASYON KORUMASI (CÜZDAN KALKANI) ---
+# Botun tam olarak çalıştığı anın milisaniye cinsinden zaman damgası
+BOT_START_TIME = int(time.time() * 1000)
 
 # --- ASENKRON YARIŞ DURUMU (RACE CONDITION) ÖNLEYİCİ ---
 PROCESSING_EVENTS = set()
@@ -78,11 +83,9 @@ Yanıtını KESİNLİKLE başka hiçbir açıklama metni eklemeden, doğrudan ş
             ],
         ))
         
-        # Claude'un döndürdüğü ham metni alıyoruz
         raw_text = response.content[0].text
         print(f"\n[DEBUG] Claude'dan Gelen Ham Yanıt:\n{raw_text}\n")
         
-        # Gevezelik filtresi: Sadece süslü parantezlerin { } arasındaki JSON'ı cımbızla
         start_idx = raw_text.find('{')
         end_idx = raw_text.rfind('}') + 1
         
@@ -95,50 +98,6 @@ Yanıtını KESİNLİKLE başka hiçbir açıklama metni eklemeden, doğrudan ş
     except Exception as e:
         print(f"[-] Claude API Analiz Hatası: {e}")
         return None
-    """Görseli bloke etmeden arka planda Claude Sonnet 4.6'ya gönderir"""
-    base64_image = base64.b64encode(image_bytes).decode("utf-8")
-    
-    prompt = """Sen bir kargo, fatura ve irsaliye analiz uzmanısın.
-Görseldeki belgeyi, etiketi veya paketi incele. 
-Yanıtını KESİNLİKLE başka hiçbir açıklama metni eklemeden, doğrudan şu JSON formatında döndür:
-{
-  "gonderen": "Kim göndermiş (Firma veya Kişi adı, okunamıyorsa 'Tespit Edilemedi' yaz)",
-  "alici": "Kime göndermiş (Firma veya Kişi adı, okunamıyorsa 'Tespit Edilemedi' yaz)",
-  "icerik": "Ne gelmiş (Etikette yazan ürün, paket veya evrak detayı, okunamıyorsa 'Bilinmiyor' yaz)"
-}"""
-
-    try:
-        loop = asyncio.get_event_loop()
-        response = await loop.run_in_executor(None, lambda: claude_client.messages.create(
-            # YENİ EKLENEN KISIM: Hesap tier uyumluluğu için stabil Haziran sürümü kullanılıyor
-            model="claude-sonnet-4-6",
-            max_tokens=500,
-            temperature=0.0,
-            system=prompt,
-            messages=[
-                {
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "image",
-                            "source": {
-                                "type": "base64",
-                                "media_type": mime_type,
-                                "data": base64_image,
-                            },
-                        },
-                        {
-                            "type": "text",
-                            "text": "Bu görseli analiz et ve belirtilen JSON formatında yanıt ver."
-                        }
-                    ],
-                }
-            ],
-        ))
-        return json.loads(response.content[0].text)
-    except Exception as e:
-        print(f"[-] Claude API Analiz Hatası: {e}")
-        return None
 
 
 async def download_matrix_media_bruteforce(access_token, mxc_server, media_id):
@@ -146,9 +105,7 @@ async def download_matrix_media_bruteforce(access_token, mxc_server, media_id):
     loop = asyncio.get_event_loop()
     headers = {"Authorization": f"Bearer {access_token}"}
     
-    # 1. Yöntem: Matrix v1.11+ Güncel Authenticated (Kimlik Doğrulamalı) Endpoint
     url_new = f"{HOMESERVER}/_matrix/client/v1/media/download/{mxc_server}/{media_id}"
-    # 2. Yöntem: Eski Legacy Endpoint
     url_legacy = f"{HOMESERVER}/_matrix/media/v3/download/{mxc_server}/{media_id}"
     
     def fetch_url(url):
@@ -160,20 +117,70 @@ async def download_matrix_media_bruteforce(access_token, mxc_server, media_id):
         except Exception as e:
             return str(e)
 
-    # Önce yeni API'yi deniyoruz
     res_new = await loop.run_in_executor(None, fetch_url, url_new)
     if isinstance(res_new, bytes):
         return res_new
         
     print(f"[LOG] Yeni nesil Matrix Medya API yanıt vermedi (Durum: {res_new}). Legacy yola düşülüyor...")
     
-    # Yeni API patlarsa eski API'yi deniyoruz
     res_legacy = await loop.run_in_executor(None, fetch_url, url_legacy)
     if isinstance(res_legacy, bytes):
         return res_legacy
         
     print(f"[-] Kritik Hata: Her iki indirme yöntemi de başarısız oldu! Legacy Sunucu Yanıtı: {res_legacy}")
     return None
+
+
+async def send_to_nodejs_webhook_async(event_id, room_id, sender_id, message_text):
+    """Matrix'ten gelen metin mesajlarını Node.js sunucusuna postalar."""
+    webhook_url = "http://localhost:3000/api/v1/messages"
+    
+    payload = {
+        "messageId": event_id,
+        "eventId": event_id,
+        "roomId": room_id,
+        "platform": "whatsapp" if "whatsapp" in sender_id.lower() else "matrix",
+        "sender": { "id": sender_id, "name": sender_id },
+        "type": "text",
+        "content": { "text": message_text },
+        "timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    }
+
+    try:
+        loop = asyncio.get_event_loop()
+        response = await loop.run_in_executor(None, lambda: requests.post(webhook_url, json=payload, timeout=5))
+    except Exception as e:
+        print(f"[Webhook Kritik Hata] Node.js sunucusuna ulaşılamadı: {e}")
+
+
+async def send_ai_analysis_to_nodejs_async(event_id, room_id, sender_id, ai_data, mxc_url):
+    """Claude AI analiz sonuçlarını ve görsel bilgisini Node.js sunucusuna postalar."""
+    webhook_url = "http://localhost:3000/api/v1/messages"
+    
+    payload = {
+        "messageId": f"ai_{event_id}", 
+        "eventId": event_id,
+        "roomId": room_id,
+        "platform": "whatsapp" if "whatsapp" in sender_id.lower() else "matrix",
+        "sender": { "id": "claude-ai", "name": "Claude AI" },
+        "type": "image_analysis",
+        "content": { 
+            "text": "Kargo/İrsaliye Görsel Analizi",
+            "imageUrl": mxc_url, 
+            "aiResult": ai_data  
+        },
+        "timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    }
+
+    try:
+        loop = asyncio.get_event_loop()
+        response = await loop.run_in_executor(None, lambda: requests.post(webhook_url, json=payload, timeout=5))
+        if response.status_code == 202:
+            print(f"[Webhook] 🧠 AI Analizi Node.js'e başarıyla iletildi: ai_{event_id}")
+        else:
+            print(f"[Webhook Hata] Node.js AI verisini reddetti: {response.status_code} - {response.text}")
+    except Exception as e:
+        print(f"[Webhook Kritik Hata] AI verisi gönderilirken sunucuya ulaşılamadı: {e}")
 
 
 async def invite_callback(room: MatrixRoom, event: InviteEvent):
@@ -187,6 +194,16 @@ async def invite_callback(room: MatrixRoom, event: InviteEvent):
 
 async def global_event_callback(room: MatrixRoom, event: Event):
     """Tüm eventleri dinler, filtreleri uygular ve analiz süreçlerini yönetir."""
+    
+    # =========================================================================
+    # 🛡️ CÜZDAN KALKANI: GEÇMİŞ MESAJLARI YOKSAY
+    # Eğer mesaj botun başlama zamanından önce Matrix'e atılmışsa, işlemi iptal et.
+    # =========================================================================
+    event_timestamp = event.source.get("origin_server_ts", 0)
+    if event_timestamp < BOT_START_TIME:
+        return
+    # =========================================================================
+    
     event_dict = event.source
     event_type = event_dict.get("type")
     room_name = room.display_name or room.name
@@ -195,13 +212,18 @@ async def global_event_callback(room: MatrixRoom, event: Event):
         return
 
     # -----------------------------------------------------------------
-    # 📸 GÖRSEL TESPİTİ VE İNDİRME
+    # 📸 GÖRSEL TESPİTİ VE İNDİRME / NODE.JS İLETİMİ
     # -----------------------------------------------------------------
     if event_type == "m.room.message":
         content = event_dict.get("content", {})
         msgtype = content.get("msgtype")
         sender = event_dict.get("sender", "")
+        event_id = event_dict.get("event_id", "") 
         
+        if "gitlab-bot" not in sender:
+            msg_body = content.get("body", "İçerik Yok")
+            await send_to_nodejs_webhook_async(event_id, room.room_id, sender, msg_body)
+
         if msgtype == "m.image" and "gitlab-bot" not in sender:
             print(f"\n[📸 DETEKTÖR] {room_name} odasında görsel algılandı! AI Analizi başlatılıyor...")
             mxc_url = content.get("url", "")
@@ -217,12 +239,14 @@ async def global_event_callback(room: MatrixRoom, event: Event):
                     image_bytes = await download_matrix_media_bruteforce(client.access_token, mxc_server, media_id)
                     
                     if image_bytes:
-                        print("[🧠 AI] Görsel başarıyla indirildi! Claude 3.5 Sonnet Kargo/İrsaliye analizini yapıyor...")
+                        print("[🧠 AI] Görsel başarıyla indirildi! Claude Kargo/İrsaliye analizini yapıyor...")
                         mime_type = content.get("info", {}).get("mime_type", "image/jpeg")
                         
                         result = await analyze_with_claude(image_bytes, mime_type)
                         
                         if result:
+                            await send_ai_analysis_to_nodejs_async(event_id, room.room_id, sender, result, mxc_url)
+
                             print("[🎉 BAŞARILI] AI Yanıt verdi, odaya mesaj gönderiliyor...")
                             formatted_msg = (
                                 f"📌 **Gelen Kargo / Belge Analizi**\n\n"
@@ -273,9 +297,7 @@ async def global_event_callback(room: MatrixRoom, event: Event):
         except Exception:
             pass
 
-        # -----------------------------------------------------------------
         # ✅ REAKSİYONU - AI KARGO ONAYI
-        # -----------------------------------------------------------------
         if "✅" in reaction_key:
             if target_event_id in CLAUDE_ANALYSIS_CACHE:
                 lock_key = f"claude_{target_event_id}"
@@ -332,9 +354,7 @@ async def global_event_callback(room: MatrixRoom, event: Event):
                     PROCESSING_EVENTS.discard(lock_key)
                 return
 
-        # -----------------------------------------------------------------
         # 📌 PIN REAKSİYONU - NORMAL YAZI TALEBİ AÇMA
-        # -----------------------------------------------------------------
         elif "📌" in reaction_key:
             lock_key = f"pin_{target_event_id}"
             if lock_key in PROCESSING_EVENTS:
@@ -402,9 +422,7 @@ async def global_event_callback(room: MatrixRoom, event: Event):
             finally:
                 PROCESSING_EVENTS.discard(lock_key)
 
-        # -----------------------------------------------------------------
         # 📝 REAKSİYONU - YORUM EKLEME
-        # -----------------------------------------------------------------
         elif any(x in reaction_key for x in ["📝", "📄", "➕"]):
             lock_key = f"comment_{target_event_id}"
             if lock_key in PROCESSING_EVENTS:
@@ -447,9 +465,7 @@ async def global_event_callback(room: MatrixRoom, event: Event):
             finally:
                 PROCESSING_EVENTS.discard(lock_key)
 
-        # -----------------------------------------------------------------
         # ❌ REAKSİYONU - ISSUE KAPATMA
-        # -----------------------------------------------------------------
         elif any(x in reaction_key for x in ["❌", "✖️", "✖"]):
             lock_key = f"close_{target_event_id}"
             if lock_key in PROCESSING_EVENTS:
@@ -491,7 +507,7 @@ async def main():
     client.add_event_callback(invite_callback, InviteEvent)
     client.add_event_callback(global_event_callback, Event)
 
-    print("Bağlantı başarılı! Bot aktif, Gelişmiş Kimlik Doğrulamalı Medya Modu ve Sonnet 0620 devrede...")
+    print("Bağlantı başarılı! Bot aktif, AI Modülü ve Cüzdan Koruması devrede...")
     await client.sync_forever(timeout=30000)
 
 if __name__ == "__main__":

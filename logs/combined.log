@@ -1,0 +1,116 @@
+{"level":"info","message":"[Redis] Başarıyla bağlanıldı.","service":"message-service","timestamp":"2026-07-03 13:52:24"}
+{"level":"info","message":"[MongoDB] Bağlantı başarılı.","service":"message-service","timestamp":"2026-07-03 13:52:24"}
+{"level":"info","message":"[Server] Uygulama 3000 portu üzerinde başarıyla başlatıldı.","service":"message-service","timestamp":"2026-07-03 13:52:24"}
+{"level":"info","message":"[Redis] Başarıyla bağlanıldı.","service":"message-service","timestamp":"2026-07-03 14:01:13"}
+{"level":"info","message":"[Redis] Başarıyla bağlanıldı.","service":"message-service","timestamp":"2026-07-03 14:03:21"}
+{"level":"info","message":"[MongoDB] Bağlantı başarılı.","service":"message-service","timestamp":"2026-07-03 14:03:21"}
+{"level":"info","message":"[Server] Uygulama 3000 portu üzerinde başarıyla başlatıldı.","service":"message-service","timestamp":"2026-07-03 14:03:21"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-03 14:08:44"}
+{"level":"error","message":"[Service] Akış hatası: this._client.defineCommand is not a function","service":"message-service","stack":"TypeError: this._client.defineCommand is not a function\n    at RedisConnection.loadCommands (C:\\matrix-proje\\node_modules\\bullmq\\dist\\cjs\\classes\\redis-connection.js:169:30)\n    at RedisConnection.init (C:\\matrix-proje\\node_modules\\bullmq\\dist\\cjs\\classes\\redis-connection.js:196:14)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)","timestamp":"2026-07-03 14:08:44"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-03 14:56:39"}
+{"level":"info","message":"[Service] Mükerrer mesaj reddedildi, DB'ye gidilmedi. ID: msg_001","service":"message-service","timestamp":"2026-07-03 14:56:39"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-03 14:58:36"}
+{"level":"error","message":"[Service] Akış hatası: this._client.defineCommand is not a function","service":"message-service","stack":"TypeError: this._client.defineCommand is not a function\n    at RedisConnection.loadCommands (C:\\matrix-proje\\node_modules\\bullmq\\dist\\cjs\\classes\\redis-connection.js:169:30)\n    at RedisConnection.init (C:\\matrix-proje\\node_modules\\bullmq\\dist\\cjs\\classes\\redis-connection.js:196:14)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)","timestamp":"2026-07-03 14:58:36"}
+{"level":"info","message":"[Redis] Başarıyla bağlanıldı.","service":"message-service","timestamp":"2026-07-03 15:12:27"}
+{"level":"info","message":"[MongoDB] Bağlantı başarılı.","service":"message-service","timestamp":"2026-07-03 15:12:27"}
+{"level":"info","message":"[Server] Uygulama 3000 portu üzerinde başarıyla başlatıldı.","service":"message-service","timestamp":"2026-07-03 15:12:27"}
+{"level":"info","message":"[Redis] Başarıyla bağlanıldı.","service":"message-service","timestamp":"2026-07-03 15:12:31"}
+{"level":"info","message":"[MongoDB] Bağlantı başarılı.","service":"message-service","timestamp":"2026-07-03 15:12:31"}
+{"level":"info","message":"[Server] Uygulama 3000 portu üzerinde başarıyla başlatıldı.","service":"message-service","timestamp":"2026-07-03 15:12:31"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-03 15:12:43"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: msg_003","service":"message-service","timestamp":"2026-07-03 15:12:43"}
+{"duration":"37ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"msg_003","service":"message-service","timestamp":"2026-07-03 15:12:43"}
+{"level":"warn","message":"[MongoDB] Bağlantı koptu!","service":"message-service","timestamp":"2026-07-04 01:01:31"}
+{"level":"warn","message":"[MongoDB] Bağlantı koptu!","service":"message-service","timestamp":"2026-07-04 01:01:31"}
+{"level":"info","message":"[MongoDB] Bağlantı başarılı.","service":"message-service","timestamp":"2026-07-04 01:01:41"}
+{"level":"info","message":"[MongoDB] Bağlantı başarılı.","service":"message-service","timestamp":"2026-07-04 01:01:41"}
+{"level":"warn","message":"[MongoDB] Bağlantı koptu!","service":"message-service","timestamp":"2026-07-04 13:01:14"}
+{"level":"warn","message":"[MongoDB] Bağlantı koptu!","service":"message-service","timestamp":"2026-07-04 13:01:14"}
+{"level":"info","message":"[MongoDB] Bağlantı başarılı.","service":"message-service","timestamp":"2026-07-04 13:01:24"}
+{"level":"info","message":"[MongoDB] Bağlantı başarılı.","service":"message-service","timestamp":"2026-07-04 13:01:24"}
+{"level":"info","message":"[Redis] Başarıyla bağlanıldı.","service":"message-service","timestamp":"2026-07-04 13:19:24"}
+{"level":"info","message":"[MongoDB] Bağlantı başarılı.","service":"message-service","timestamp":"2026-07-04 13:19:24"}
+{"level":"info","message":"[Server] Uygulama 3000 portu üzerinde başarıyla başlatıldı.","service":"message-service","timestamp":"2026-07-04 13:19:24"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $KghIh6citS-zIsoLYtdFzdv7IIUVchR_XVZD7dzy1sQ","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"duration":"18ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$KghIh6citS-zIsoLYtdFzdv7IIUVchR_XVZD7dzy1sQ","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $QeiIHfEnsit0Yd5CJTzjNKCJxKZgfs0y41YzId8xxq4","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $h2N1Hce2Z9XR5HcPvwoShdsQPgx2o5t2iTuryX7Ps54","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"duration":"10ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$h2N1Hce2Z9XR5HcPvwoShdsQPgx2o5t2iTuryX7Ps54","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $9prtBsnI3xvTjpFv6CANDtW0idx18ALPoPipvwK_VB8","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"duration":"21ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$QeiIHfEnsit0Yd5CJTzjNKCJxKZgfs0y41YzId8xxq4","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"duration":"6ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$9prtBsnI3xvTjpFv6CANDtW0idx18ALPoPipvwK_VB8","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $2iPuIyoYQtGF_VoCHAaM45FWGZ5ezdu8c9ODlw6yd3E","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"duration":"3ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$2iPuIyoYQtGF_VoCHAaM45FWGZ5ezdu8c9ODlw6yd3E","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $WlAUyk546Zct9lFATIlH-EAuon6wgDcIykFPng7royo","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"duration":"6ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$WlAUyk546Zct9lFATIlH-EAuon6wgDcIykFPng7royo","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $Ms2ZEzrEKTLkWNSMgwMGkFeWjWrT6aKEjGHNPh18TQY","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"duration":"3ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$Ms2ZEzrEKTLkWNSMgwMGkFeWjWrT6aKEjGHNPh18TQY","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $kb-PW-5iAZuiykmPDfu7WUa5t1yqf0ICS_55jHoD2f4","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"duration":"4ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$kb-PW-5iAZuiykmPDfu7WUa5t1yqf0ICS_55jHoD2f4","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $ayJNMRxPb7WKrfelzPezy2N-lPHmRAIqoPt5e8_VF1s","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"duration":"5ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$ayJNMRxPb7WKrfelzPezy2N-lPHmRAIqoPt5e8_VF1s","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $FgK98UvTpRYZQsK86eCj2NuogiTq0NslrmjOffQbz-c","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"duration":"6ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$FgK98UvTpRYZQsK86eCj2NuogiTq0NslrmjOffQbz-c","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $OTxrGKlRlhhZhJdEG159c76DbB6qhCmFleI2uBhJTN4","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"duration":"11ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$OTxrGKlRlhhZhJdEG159c76DbB6qhCmFleI2uBhJTN4","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $gfH0vD6_A7swcFfIdPJ5AA61ajITsl9oa1sJYmtHFVw","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"duration":"5ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$gfH0vD6_A7swcFfIdPJ5AA61ajITsl9oa1sJYmtHFVw","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $mM5_cXu6oVWBzEfDeh_UhWFMjlStcsJ_p5Gd0R9jciU","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"duration":"4ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$mM5_cXu6oVWBzEfDeh_UhWFMjlStcsJ_p5Gd0R9jciU","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $qv_nBtng7mrkGvrYLL_vcj3aT6tQDIHGuhB1VKyXpiQ","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"duration":"5ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$qv_nBtng7mrkGvrYLL_vcj3aT6tQDIHGuhB1VKyXpiQ","service":"message-service","timestamp":"2026-07-04 13:30:30"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:57:20"}
+{"level":"info","message":"[Service] Mükerrer mesaj reddedildi, DB'ye gidilmedi. ID: $KghIh6citS-zIsoLYtdFzdv7IIUVchR_XVZD7dzy1sQ","service":"message-service","timestamp":"2026-07-04 13:57:20"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:57:20"}
+{"level":"info","message":"[Service] Mükerrer mesaj reddedildi, DB'ye gidilmedi. ID: $QeiIHfEnsit0Yd5CJTzjNKCJxKZgfs0y41YzId8xxq4","service":"message-service","timestamp":"2026-07-04 13:57:20"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Service] Mükerrer mesaj reddedildi, DB'ye gidilmedi. ID: $ayJNMRxPb7WKrfelzPezy2N-lPHmRAIqoPt5e8_VF1s","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Service] Mükerrer mesaj reddedildi, DB'ye gidilmedi. ID: $FgK98UvTpRYZQsK86eCj2NuogiTq0NslrmjOffQbz-c","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Service] Mükerrer mesaj reddedildi, DB'ye gidilmedi. ID: $OTxrGKlRlhhZhJdEG159c76DbB6qhCmFleI2uBhJTN4","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Service] Mükerrer mesaj reddedildi, DB'ye gidilmedi. ID: $gfH0vD6_A7swcFfIdPJ5AA61ajITsl9oa1sJYmtHFVw","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Service] Mükerrer mesaj reddedildi, DB'ye gidilmedi. ID: $h2N1Hce2Z9XR5HcPvwoShdsQPgx2o5t2iTuryX7Ps54","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Service] Mükerrer mesaj reddedildi, DB'ye gidilmedi. ID: $9prtBsnI3xvTjpFv6CANDtW0idx18ALPoPipvwK_VB8","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Service] Mükerrer mesaj reddedildi, DB'ye gidilmedi. ID: $2iPuIyoYQtGF_VoCHAaM45FWGZ5ezdu8c9ODlw6yd3E","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Service] Mükerrer mesaj reddedildi, DB'ye gidilmedi. ID: $WlAUyk546Zct9lFATIlH-EAuon6wgDcIykFPng7royo","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Service] Mükerrer mesaj reddedildi, DB'ye gidilmedi. ID: $Ms2ZEzrEKTLkWNSMgwMGkFeWjWrT6aKEjGHNPh18TQY","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Service] Mükerrer mesaj reddedildi, DB'ye gidilmedi. ID: $kb-PW-5iAZuiykmPDfu7WUa5t1yqf0ICS_55jHoD2f4","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Service] Mükerrer mesaj reddedildi, DB'ye gidilmedi. ID: $qv_nBtng7mrkGvrYLL_vcj3aT6tQDIHGuhB1VKyXpiQ","service":"message-service","timestamp":"2026-07-04 13:57:21"}
+{"level":"info","message":"[Redis] Başarıyla bağlanıldı.","service":"message-service","timestamp":"2026-07-04 13:57:55"}
+{"level":"info","message":"[MongoDB] Bağlantı başarılı.","service":"message-service","timestamp":"2026-07-04 13:57:55"}
+{"level":"info","message":"[Server] Uygulama 3000 portu üzerinde başarıyla başlatıldı.","service":"message-service","timestamp":"2026-07-04 13:57:55"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 14:05:40"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $gIT52ifjrMYWh46Rox2CJH4KpL7ZrruYlvlPOS2hyvg","service":"message-service","timestamp":"2026-07-04 14:05:40"}
+{"duration":"13ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$gIT52ifjrMYWh46Rox2CJH4KpL7ZrruYlvlPOS2hyvg","service":"message-service","timestamp":"2026-07-04 14:05:40"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 14:05:40"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $xTNqaI1GDms4wy_mhOs6HJ3nSz35GpvDcInI3OnXwM8","service":"message-service","timestamp":"2026-07-04 14:05:40"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 14:05:40"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $3maMdB4i-wU9YMM1OLQ_hJpd732_uqrCc-9E-w6puxQ","service":"message-service","timestamp":"2026-07-04 14:05:40"}
+{"duration":"3ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$xTNqaI1GDms4wy_mhOs6HJ3nSz35GpvDcInI3OnXwM8","service":"message-service","timestamp":"2026-07-04 14:05:40"}
+{"duration":"3ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$3maMdB4i-wU9YMM1OLQ_hJpd732_uqrCc-9E-w6puxQ","service":"message-service","timestamp":"2026-07-04 14:05:40"}
+{"level":"info","message":"[Controller] Yeni bir webhook isteği alındı.","service":"message-service","timestamp":"2026-07-04 14:05:43"}
+{"level":"info","message":"[Service] Mesaj başarıyla kuyruğa alındı. ID: $wqEuN8VuwjI2H_zgs8iCd3qgJ_BKUqBdaHBgQUew9o0","service":"message-service","timestamp":"2026-07-04 14:05:43"}
+{"duration":"5ms","level":"info","message":"[MongoDB] Mesaj Kaydedildi","messageId":"$wqEuN8VuwjI2H_zgs8iCd3qgJ_BKUqBdaHBgQUew9o0","service":"message-service","timestamp":"2026-07-04 14:05:43"}

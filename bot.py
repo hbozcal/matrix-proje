@@ -50,3 +50,42 @@ if __name__ == '__main__':
     # Botu 5000 portunda çalıştır
     print("🤖 GitLab-Matrix köprüsü çalışıyor... Bekleniyor.")
     app.run(host='0.0.0.0', port=5000)
+
+   
+   #veritabanına gönderme 
+    import requests
+from datetime import datetime
+
+def send_to_nodejs_webhook(event_id, room_id, sender_id, sender_name, message_text):
+    """
+    Matrix'ten gelen mesajı Node.js (Express) sunucumuza postalar.
+    """
+    webhook_url = "http://localhost:3000/api/v1/messages"
+    
+    # Node.js tarafında beklediğimiz (normalize edilmiş) JSON formatı
+    payload = {
+        "messageId": event_id,
+        "eventId": event_id,
+        "roomId": room_id,
+        "platform": "matrix", # Veya WhatsApp'tan geliyorsa 'whatsapp' yapılabilir
+        "sender": { 
+            "id": sender_id, 
+            "name": sender_name 
+        },
+        "type": "text",
+        "content": { "text": message_text },
+        "timestamp": datetime.utcnow().isoformat() + "Z"
+    }
+
+    try:
+        # Mesajı Node.js sunucusuna fırlatıyoruz
+        response = requests.post(webhook_url, json=payload, timeout=5)
+        
+        # 202 Accepted bekliyoruz (Controller'da öyle ayarlamıştık)
+        if response.status_code == 202:
+            print(f"[Webhook] Mesaj Node.js'e başarıyla iletildi: {event_id}")
+        else:
+            print(f"[Webhook Hata] Node.js reddetti: {response.status_code} - {response.text}")
+            
+    except requests.exceptions.RequestException as e:
+        print(f"[Webhook Kritik Hata] Node.js sunucusuna ulaşılamadı: {e}")

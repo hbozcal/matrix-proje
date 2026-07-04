@@ -42,3 +42,23 @@ services:
       - GID=1000
     depends_on:
       - synapse
+
+  # --- YENİ EKLENEN SERVİSLER (Mesaj Kayıt Altyapısı) ---
+
+  mongodb:
+    image: mongo:6.0
+    container_name: matrix-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo_data:/data/db
+
+  redis:
+    image: redis:7.0-alpine
+    container_name: matrix-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis_data:/data  
