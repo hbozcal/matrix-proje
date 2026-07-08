@@ -1,6 +1,21 @@
-postgres_data/  
-synapse_data/  
-whatsapp-data/  
-__pycache__/  
-bot_state.db  
-git 
+# Veritabanları ve Veri Klasörleri
+mongo_data/
+redis_data/
+postgres_data/
+synapse_data/
+whatsapp-data/
+bot_state.db
+
+# Loglar ve Raporlar
+logs/
+*.log
+raporlar/
+
+# Bağımlılıklar (Node.js ve Python)
+node_modules/
+__pycache__/
+*.pyc
+
+# Gizli Bilgiler
+.env
+config.yaml
