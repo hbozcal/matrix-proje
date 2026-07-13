@@ -1,21 +1,109 @@
-# Veritabanları ve Veri Klasörleri
-mongo_data/
-redis_data/
-postgres_data/
-synapse_data/
-whatsapp-data/
-bot_state.db
+# ============================================
+# SECRETS / ENV
+# ============================================
+.env
+.env.*
+!.env.example
+config.yaml
+*secret*
+*.pem
+*.key
+*.crt
+*.p12
 
-# Loglar ve Raporlar
-logs/
+# ============================================
+# PYTHON
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+venv/
+.venv/
+env/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+.coverage.*
+
+# ============================================
+# NODE.JS / TYPESCRIPT
+# ============================================
+node_modules/
+dist/
+build/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+
+# ============================================
+# VERİTABANI / RUNTIME STATE
+# ============================================
+*.db
+*.sqlite
+*.sqlite3
+bot_state.db
+mongo_data/
+postgres_data/
+redis_data/
+synapse_data/
+
+# ============================================
+# MATRIX / MAUTRIX (WhatsApp Bridge)
+# ============================================
+mautrix-whatsapp/
+whatsapp-data/
+*.session
+*.session.db
+
+# ============================================
+# WHISPER / MEDYA / GEÇİCİ DOSYALAR
+# ============================================
+*.ogg
+*.wav
+*.mp3
+/tmp/
+/temp/
+whisper_cache/
+media_downloads/
+
+# ============================================
+# LOGLAR VE RAPORLAR
+# ============================================
 *.log
+logs/
 raporlar/
 
-# Bağımlılıklar (Node.js ve Python)
-node_modules/
-__pycache__/
-*.pyc
+# ============================================
+# DOCKER
+# ============================================
+*.pid
+docker-compose.override.yml
 
-# Gizli Bilgiler
-.env
-config.yaml
+# ============================================
+# KISAYOLLAR / ARAÇLAR
+# ============================================
+*.lnk
+ngrok.exe*
+
+# ============================================
+# IDE
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ============================================
+# OS
+# ============================================
+.DS_Store
+Thumbs.db
+desktop.ini

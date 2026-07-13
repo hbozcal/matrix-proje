@@ -3,19 +3,24 @@ import os
 import tempfile
 import whisper
 
-# Windows arka plan servisleri için FFmpeg yolunu kod seviyesinde kesinleştiriyoruz
-FFMPEG_PATH = r"C:\ffmpeg\bin"
-if FFMPEG_PATH not in os.environ["PATH"]:
-    os.environ["PATH"] += os.path.pathsep + FFMPEG_PATH
+import config
 
-print("[🤖 LOCAL WHISPER] Model yükleniyor (Hafızaya alınıyor)...")
-whisper_model = whisper.load_model("base")
+# FFmpeg yolu artık hardcoded değil, .env üzerinden geliyor (opsiyonel).
+# Sunucu Linux ise genelde FFmpeg zaten PATH içindedir; sadece Windows'ta
+# özel bir kurulum yolu varsa FFMPEG_PATH tanımlanmalı.
+if config.FFMPEG_PATH and config.FFMPEG_PATH not in os.environ["PATH"]:
+    os.environ["PATH"] += os.path.pathsep + config.FFMPEG_PATH
+
+print(f"[🤖 LOCAL WHISPER] '{config.WHISPER_MODEL}' modeli yükleniyor (Hafızaya alınıyor)...")
+whisper_model = whisper.load_model(config.WHISPER_MODEL)
 print("[✅ LOCAL WHISPER] Model başarıyla yüklendi ve kullanıma hazır!")
+
 
 async def transcribe_voice(audio_bytes: bytes) -> str:
     """
-    Gelen ses byte verisini yerel Whisper modeli ile Türkçe metne çevirir.
+    Gelen ses byte verisini yerel Whisper modeli ile metne çevirir.
     """
+    temp_path = None
     try:
         # 1. Gelen ses byte verisini geçici bir dosyaya yazıyoruz
         with tempfile.NamedTemporaryFile(delete=False, suffix=".ogg") as temp_audio:
@@ -26,17 +31,18 @@ async def transcribe_voice(audio_bytes: bytes) -> str:
 
         # 2. Whisper senkron çalıştığı için asyncio.to_thread kullanarak ana botu kilitlemesini önlüyoruz
         result = await asyncio.to_thread(
-            whisper_model.transcribe, 
-            temp_path, 
-            language="tr"
+            whisper_model.transcribe,
+            temp_path,
+            language=config.WHISPER_LANGUAGE,
         )
-        
-        # 3. İşlem bittikten sonra geçici dosyayı bilgisayardan temizliyoruz
-        if os.path.exists(temp_path):
-            os.remove(temp_path)
-            
+
         return result.get("text", "").strip()
 
     except Exception as e:
         print(f"[❌ LOCAL WHISPER HATASI] Transkripsiyon başarısız: {e}")
         return ""
+
+    finally:
+        # 3. İşlem bittikten/hata alındıktan sonra geçici dosyayı her durumda temizle
+        if temp_path and os.path.exists(temp_path):
+            os.remove(temp_path)
